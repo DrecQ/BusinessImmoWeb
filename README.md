@@ -6,3 +6,6 @@ Ce que j'ai retenu en faisant cet projet :
 
 - L'étape qui suit doit être la creation des Requests, c'est un moyen de vérifier et de sécuriser les entrées et les autorisations dans l'applications.
 
+- Vient maintennat l'étape de la logique de code qui est géré par les controllers... Tout ce qui sera renvoyé à la vue est au préalable traité et ajouter grâce aux controllers
+
+-Enfin l'étape finale est la création des vues. Pour rendre le code modulable, on peut utiliser des composants et des propriétés spécifiques de blade qui permettent de rendre le style très dynamique 
