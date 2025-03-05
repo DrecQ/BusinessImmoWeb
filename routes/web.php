@@ -23,5 +23,5 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin')->group(function() {
    
-    Route::resource('property', \App\Http\Controllers\Admin\PropertyController::class);
+    Route::resource('property', \App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
 });
