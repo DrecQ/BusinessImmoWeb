@@ -9,73 +9,74 @@ use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
-     function index()
+    /**
+     * Affiche la liste des biens.
+     */
+    public function index()
     {
-        //Affichage des properties
-
         return view('admin.properties.index', [
             'properties' => Property::orderBy('created_at', 'desc')->paginate(10),
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'un bien.
      */
     public function create()
     {
-        //Créer un objet 
-
-        $property = new Property();
-
-        $property->fill([
+        $property = new Property([
             'surface' => 40,
             'rooms' => 3,
             'bedrooms' => 1,
             'bathrooms' => 1,
             'floor' => 0,
             'city' => 'Cotonou',
-            'postal_code' => 00732,
+            'postal_code' => 7584,
             'sold' => false,
         ]);
 
-        return view('admin.properties.form', [
-            'property' => $property,
-        ]);
+        return view('admin.properties.form', [ 'property' => new Property()]);
     }
 
     /**
-     * Display the specified resource.
+     * Enregistre un nouveau bien dans la base de données.
      */
-    public function store(PropertyFormRequest $request)
+    
+        public function store(PropertyFormRequest $request)
+        {
+            $property = Property::create($request->validated());
+            return to_route('admin.property.index')->with('success', 'Le bien a été créé avec succès.');
+        }
+
+   
+
+    /**
+     * Affiche le formulaire d'édition d'un bien.
+     */
+    public function edit(Property $property)
     {
-        //Creation d'un nouvel enregistrement
 
-        $property = Property::create($request->validate());
-
-        return to_route('admin.properties.index')->with('success', 'Le bien a été.');
+        return view('admin.properties.form')->with('property', $property);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Met à jour un bien existant.
      */
-    public function edit(string $id)
+    public function update(PropertyFormRequest $request, Property $property)
     {
-        //
+        $property->update($request->validated());
+
+        return to_route('admin.property.index')->with('success', 'Le bien a été mis à jour avec succès.');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Supprime un bien.
      */
-    public function update(Request $request, string $id)
+    public function destroy(Property $property)
     {
-        //
-    }
+        $property->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return to_route('admin.property.index')->with('success', 'Le bien a été supprimé avec succès.');
     }
 }
+

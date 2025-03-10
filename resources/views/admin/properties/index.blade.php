@@ -7,7 +7,7 @@
 
     <div class="d-flex justify-content-between align-items-center">
         <h1>@yield('title')</h1>
-        <a href="{{route('adminproperty.create')}}" class="btn btn-primary">Ajouter un bien</a>
+        <a href="{{route('admin.property.create')}}" class="btn btn-primary">Ajouter un bien</a>
     </div>
 
     <table class="table table-striped">
@@ -26,8 +26,9 @@
             <tr>
                 <td>{{ $property->title }}</td>
                 <td>{{ $property->surface }} m²</td>
-                <td>{{ number_format($property->price, thousands_separator : ' ') }} </td>
-                <td>{{ $property->ville }}</td>
+                <td>{{ number_format($property->price, 0, ',', ' ') }} €</td>
+                <td>{{ $property->city }}</td>
+
             </tr>
 
             @endforeach

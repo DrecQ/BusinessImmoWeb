@@ -21,7 +21,6 @@ Route::get('/', function () {
 
 //Creation de la route de gestion de la partie administrator
 
-Route::prefix('admin')->name('admin')->group(function() {
-   
+Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('property', \App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
 });
