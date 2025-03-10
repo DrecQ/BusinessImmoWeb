@@ -36,7 +36,8 @@
             @include('shared.input', ['class' => 'col', 'label' => 'Code Postal', 'name' => 'postal_code', 'value' => $property->postal_code])
         </div>
 
-        @include('shared.checkbox', ['label' => 'Vendu', 'name' => 'sold', 'value' => old('sold', $property->sold ?? false)])
+        @include('shared.select', ['name' => 'options', 'label' => 'Options', 'value' => $property-> option()-> pluck('id'), 'multiple' => true])
+        @include('shared.checkbox', ['label' => 'Vendu', 'name' => 'sold', 'value' => old('sold', $property->sold ?? false), 'options'=> $options])
 
         <div>
             <button type="submit" class="btn btn-primary">

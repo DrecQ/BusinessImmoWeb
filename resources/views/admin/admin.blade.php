@@ -7,8 +7,52 @@
     <title>@yield('title') | Administration</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Agence</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        @php
+            $route = request()->route() ? request()->route()->getName() : '';
+        @endphp
+
+      <ul class="navbar-nav">
+      <li class="nav-item">
+          <a class="nav-link" href="#">Acceuil</a>
+        </li>
+        <li class="nav-item">
+          <a @class(['nav-link', 'active' => str_contains($route, 'property.')]) href="{{ route('admin.property.index')}}">Gérer les biens</a>
+        </li>
+        <li class="nav-item">
+          <a @class(['nav-link', 'active' => str_contains($route, 'option.')])  href="{{ route('admin.option.index')}}">Gérer les options</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    
     <div class="container mt-5">
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{session('success')}}
+        </div>
+        @endif
+        
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="my-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
         @yield('content')
     </div>
+
+   
 </body>
 </html>
