@@ -12,9 +12,9 @@
 <div @class(["form-groupe", $class])>
     <label for="{{ $name }}"> {{ $label }}</label>
 
-    <select name="{{ $name }}[]" id="{{ $name }} multiple">
+    <select name="{{ $name }}[]" id="{{ $name }}" multiple>
         @foreach( $options as $k => $v)
-            <option value="{{ $k }}"> {{ $v }} </option>
+            <option @selected($value->contains($k)) value="{{ $k }}"> {{ $v }} </option>
         @endforeach
     </select>
 
