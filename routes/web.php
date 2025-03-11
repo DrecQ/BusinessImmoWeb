@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PropertyController;
 use App\Models\Property;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 
+$idregex = '[0-9]+';
+$slugregex = '[0-9a-z\-]+';
+
+Route::get('/biens', [PropertyController::class, 'index'])->name('property.index');
+Route::get('/biens/{slug}-{property}', [PropertyController::class, 'show'])->name('property.show')->where([
+        'property' => $idregex,
+        'slug' => $slugregex
+    ]);
 
 //Creation de la route de gestion de la partie administrator
 
