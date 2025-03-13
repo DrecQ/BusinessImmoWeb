@@ -27,6 +27,13 @@ Route::get('/biens/{slug}-{property}', [PropertyController::class, 'show'])->nam
         'slug' => $slugregex
     ]);
 
+//Route pour les contacts 
+
+Route::post('/biens/{property}/contact', [PropertyController::class, 'contact'])->name('property.contact')->where([
+    'property' => $idregex,
+]);
+
+
 //Creation de la route de gestion de la partie administrator
 
 Route::prefix('admin')->name('admin.')->group(function() {
