@@ -26,7 +26,7 @@
             <tr>
                 <td>{{ $property->title }}</td>
                 <td>{{ $property->surface }} m²</td>
-                <td>{{ number_format($property->price, 0, ',', ' ') }} €</td>
+                <td>{{ number_format($property->price, 0, ',', ' ') }} XOF</td>
                 <td>{{ $property->city }}</td>
                 <td>
                     <div class="d-flex gap-3 w-100 justify-content-end">
