@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PropertyController;
 use App\Models\Property;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,9 +36,16 @@ Route::post('/biens/{property}/contact', [PropertyController::class, 'contact'])
 ]);
 
 
+//Creation de la route pour la page de connexion 
+
+Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->name('login');
+Route::post('/login', [AuthController::class, 'doLogin']);
+Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+
 //Creation de la route de gestion de la partie administrator
 
-Route::prefix('admin')->name('admin.')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::resource('property', \App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
  Route::resource('option', \App\Http\Controllers\Admin\OptionController::class)->except(['show']);
 });

@@ -114,17 +114,20 @@
     <!-- Formulaire de contact -->
     <div class="mt-5">
         <h4 class="text-center mb-4">Intéressé par ce bien ?</h4>
+
+        @include('shared.flash')
+
         <form action=" {{ route('property.contact', $property)}}" method="post" class="vstack gap-4">
             @csrf
             <div class="row g-3">
-                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Prénoms', 'name' => 'firstname', 'value' => 'Franck'])
-                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Nom', 'name' => 'lastname', 'value' => 'Ranck'])
+                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Prénoms', 'name' => 'firstname'])
+                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Nom', 'name' => 'lastname'])
             </div>
             <div class="row g-3">
-                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Téléphone', 'name' => 'phone', 'value' => '01 02 02 03 04'])
-                @include('shared.input', ['class' => 'col-md-6', 'type' => 'email', 'label' => 'Email', 'name' => 'email', 'value'=>'drecquist@gmail.com'])
+                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Téléphone', 'name' => 'phone', ])
+                @include('shared.input', ['class' => 'col-md-6', 'type' => 'email', 'label' => 'Email', 'name' => 'email'])
             </div>
-            @include('shared.input', ['class' => 'col-12', 'type' => 'textarea', 'label' => 'Votre message', 'name' => 'message', 'value' =>'Ce bien est incoryable, Il m\'intéresse bien'])
+            @include('shared.input', ['class' => 'col-12', 'type' => 'textarea', 'label' => 'Votre message', 'name' => 'message'])
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary btn-lg mt-3">Nous contacter</button>
             </div>
