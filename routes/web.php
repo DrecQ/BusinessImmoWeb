@@ -6,6 +6,8 @@ use App\Http\Controllers\PropertyController;
 use App\Models\Property;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialiteController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +53,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
 });
 
 
+//Gestion de la connexion avec un compte Google
+Route::get('auth/google', [SocialiteController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);

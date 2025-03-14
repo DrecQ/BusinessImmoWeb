@@ -15,7 +15,10 @@
             @include('shared.input', ['class' => 'col', 'type' => 'password', 'label' => 'Password', 'name' => 'password'])
 
             <div>
-                <button type="submit" class="btn btn-primary">Se connecter</button>
+                <button type="submit" class="btn btn-primary">Se connecter</button>                
+            </div>
+            <div>
+                <a href="{{ route('google.login') }}" class="btn btn-warning">Connexion avec Google</a>
             </div>
 
         </form>
