@@ -38,7 +38,7 @@ class PropertyController extends Controller
 
         return view('admin.properties.form', [ 
             'property' => $property,
-            'options' => Option::pluck('name', 'id'),
+            'option' => Option::pluck('name', 'id'),
         ]);
     }
 
@@ -50,7 +50,7 @@ class PropertyController extends Controller
         {
 
             $property = Property::create($this->extractData(new Property(), $request));
-            $property->option()->sync($request->validated('options'));
+            $property->option()->sync($request->validated('option'));
 
             return to_route('admin.property.index')->with('success', 'Le bien a été créé avec succès.');
         }

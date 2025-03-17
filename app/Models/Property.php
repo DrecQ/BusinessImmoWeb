@@ -32,7 +32,7 @@ class Property extends Model
         'sold',
     ];
 
-    public function option() : BelongsToMany
+    public function options() : BelongsToMany
     {
         return $this-> belongsToMany(Option::class);
     }

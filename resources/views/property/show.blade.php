@@ -103,7 +103,7 @@
             <div class="col-md-4">
                 <h4 class="fw-bold mb-4">Spécificités</h4>
                 <ul class="list-group">
-                    @foreach($property->option as $option)
+                    @foreach($property->options as $option)
                         <li class="list-group-item">{{ $option->name }}</li>
                     @endforeach
                 </ul>

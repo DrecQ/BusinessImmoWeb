@@ -14,8 +14,10 @@ class HomeController extends Controller
     {
         $properties = Property::orderBy('created_at', 'DESC')->available()->recent()->limit(6)->get();
 
+        /** @var User $user */
         $user = User::first();
         $user -> password = '1111';
+        $user->syncChanges();
 
     
 

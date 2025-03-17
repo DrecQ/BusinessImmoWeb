@@ -16,7 +16,7 @@ class PropertyController extends Controller
     public function index(SearchPropertiesRequest $request)
     {
 
-        $query = Property::query()->with('option')->orderBy('created_at', 'desc');
+        $query = Property::query()->with('options')->orderBy('created_at', 'desc');
 
         if ($price = $request->validated('price')) {
             $query = $query->where('price', '<=', $price);
@@ -36,7 +36,6 @@ class PropertyController extends Controller
             $query = $query->where('title', 'like', "%{$title}%");
         }
 
-        // $properties = Property::paginate(16);
         return view('property.index', [
             'properties' => $query->paginate(16),
             'input' => $request-> validated()
