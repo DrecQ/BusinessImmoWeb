@@ -4,12 +4,22 @@
 
 @section('content')
 <div class="container mt-5">
-    <!-- Titre et informations principales -->
-    <div class="text-center mb-5">
-        <h1 class="display-4 text-primary fw-bold">{{ $property->title }}</h1>
-        <h3 class="text-muted">{{ $property->rooms }} pièces - {{ $property->surface }} m² - {{ $property->address }}</h3>
-        <div class="text-primary fw-bold mt-3" style="font-size: 3rem;">
-            {{ number_format($property->price, thousands_separator: ' ') }} XOF
+    <!-- Section Image et Informations principales -->
+    <div class="row align-items-center mb-5">
+        <!-- Image du bien -->
+        <div class="col-md-5">
+            @if($property->image)
+                <img src="{{ $property->imageUrl() }}" alt="{{ $property->title }}" class="img-fluid rounded shadow-lg" style="height: 400px; object-fit: cover; width: 100%;">
+            @endif
+        </div>
+
+        <!-- Informations principales -->
+        <div class="col-md-7">
+            <h1 class="display-5 text-primary fw-bold">{{ $property->title }}</h1>
+            <h4 class="text-muted">{{ $property->rooms }} pièces - {{ $property->surface }} m² - {{ $property->address }}</h4>
+            <div class="text-primary fw-bold mt-3" style="font-size: 2.5rem;">
+                {{ number_format($property->price, thousands_separator: ' ') }} XOF
+            </div>
         </div>
     </div>
 
@@ -105,42 +115,42 @@
 <!-- Footer -->
 <footer class="bg-light py-4 mt-4 border-top">
     <div class="container">
-      <div class="row text-center text-md-start">
-        <!-- Section Liens rapides -->
-        <div class="col-md-4 mb-3">
-          <h5 class="fw-bold mb-3">Liens rapides</h5>
-          <ul class="list-unstyled">
-            <li><a href="/" class="text-decoration-none text-dark">Accueil</a></li>
-            <li><a href="#" class="text-decoration-none text-dark">Nos biens</a></li>
-          </ul>
+        <div class="row text-center text-md-start">
+            <!-- Section Liens rapides -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold mb-3">Liens rapides</h5>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-decoration-none text-dark">Accueil</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark">Nos biens</a></li>
+                </ul>
+            </div>
+
+            <!-- Section Contact -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold mb-3">Contact</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-map-marker-alt me-2"></i>xxxxxxx , Cotonou</li>
+                    <li><i class="fas fa-phone me-2"></i>+229 01 xx xx xx xx</li>
+                    <li><i class="fas fa-envelope me-2"></i>contact@businessimmo.com</li>
+                </ul>
+            </div>
+
+            <!-- Section Réseaux sociaux -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold mb-3">Suivez-nous</h5>
+                <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+                    <a href="#" class="text-dark"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#" class="text-dark"><i class="fab fa-twitter fa-2x"></i></a>
+                    <a href="#" class="text-dark"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#" class="text-dark"><i class="fab fa-linkedin fa-2x"></i></a>
+                </div>
+            </div>
         </div>
-  
-        <!-- Section Contact -->
-        <div class="col-md-4 mb-3">
-          <h5 class="fw-bold mb-3">Contact</h5>
-          <ul class="list-unstyled">
-            <li><i class="fas fa-map-marker-alt me-2"></i>xxxxxxx , Cotonou</li>
-            <li><i class="fas fa-phone me-2"></i>+229 01 xx xx xx xx</li>
-            <li><i class="fas fa-envelope me-2"></i>contact@businessimmo.com</li>
-          </ul>
+
+        <!-- Copyright -->
+        <div class="text-center mt-4">
+            <p class="mb-0">&copy; 2023 BusinessImmo Agence. Tous droits réservés.</p>
         </div>
-  
-        <!-- Section Réseaux sociaux -->
-        <div class="col-md-4 mb-3">
-          <h5 class="fw-bold mb-3">Suivez-nous</h5>
-          <div class="d-flex gap-3 justify-content-center justify-content-md-start">
-            <a href="#" class="text-dark"><i class="fab fa-facebook fa-2x"></i></a>
-            <a href="#" class="text-dark"><i class="fab fa-twitter fa-2x"></i></a>
-            <a href="#" class="text-dark"><i class="fab fa-instagram fa-2x"></i></a>
-            <a href="#" class="text-dark"><i class="fab fa-linkedin fa-2x"></i></a>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Copyright -->
-      <div class="text-center mt-4">
-        <p class="mb-0">&copy; 2023 BusinessImmo Agence. Tous droits réservés.</p>
-      </div>
     </div>
-  </footer>
+</footer>
 @endsection

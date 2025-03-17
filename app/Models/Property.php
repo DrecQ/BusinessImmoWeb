@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Property extends Model
@@ -37,4 +38,10 @@ class Property extends Model
     {
         return Str::slug($this->title);
     }
+
+    public function imageUrl() : string
+    {       
+         return Storage::disk('public')->url($this->image ?? '');
+    }
+
 }

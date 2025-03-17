@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PropertyFormRequest;
 use App\Models\Option;
 use App\Models\Property;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -47,18 +48,10 @@ class PropertyController extends Controller
     
         public function store(PropertyFormRequest $request)
         {
-            $data = $request->validated();
 
-            /** @var UploadedFile|null  $image  */
-            $image = $request->validated('image');
-
-            if ($image !== null && !$image->getError())
-             { 
-                $data['image'] = $image->store('blog', 'public');
-            }
-
-            $property = Property::create($data);
+            $property = Property::create($this->extractData(new Property(), $request));
             $property->option()->sync($request->validated('options'));
+
             return to_route('admin.property.index')->with('success', 'Le bien a été créé avec succès.');
         }
 
@@ -79,9 +72,34 @@ class PropertyController extends Controller
     
     public function update(PropertyFormRequest $request, Property $property)
     {
-        $property->update($request->validated());
+       
+        $property->update($this->extractData($property, $request));
         $property->option()->sync($request->validated('options'));
         return to_route('admin.property.index')->with('success', 'Le bien a été mis à jour avec succès.');
+    }
+
+    // Modification de fichier uploadé 
+
+    private function extractData(Property $property, PropertyFormRequest $request):array
+    {
+        $data = $request->validated();
+
+        /** @var UploadedFile|null  $image  */
+        $image = $request->file('image');
+
+        if($image === null || $image->getError())
+        {
+            return $data; 
+        }
+
+        if($property->image)
+        {
+            Storage::disk('public')->delete($property->image);
+        }  
+       
+            $data['image'] = $image->store('blog', 'public');
+            return $data;
+
     }
 
     /**
