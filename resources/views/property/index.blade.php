@@ -3,41 +3,52 @@
 @section('title', 'Tous nos biens')
 
 @section('content')
-
-    <div class="bg-light p-5 text-center mb-4 shadow-sm rounded">
-        <h2 class="mb-4">Trouvez votre bien idéal</h2>
-        <form action="" method="get" class="container d-flex gap-3 justify-content-center">
-            <div class="d-flex gap-2">
-                <input type="number" placeholder="Surface minimale" class="form-control" name="surface" value="{{ $input['surface'] ?? '' }}">
-                <input type="number" placeholder="Nombre de pièces min" class="form-control" name="rooms" value="{{ $input['rooms'] ?? '' }}">
-                <input type="number" placeholder="Budget Max" class="form-control" name="price" value="{{ $input['price'] ?? '' }}">
-                <input placeholder="Mot clé" class="form-control" name="title" value="{{ $input['title'] ?? '' }}">
-            </div>
-            <button class="btn btn-primary btn-lg ms-2" type="submit">Rechercher</button>
-        </form>
+    <!-- Section de recherche -->
+    <div class="bg-light p-5 mb-5 shadow-sm rounded">
+        <div class="container">
+            <h2 class="text-center mb-4 fw-bold">Trouvez votre bien idéal</h2>
+            <form action="" method="get" class="row g-3 justify-content-center">
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-lg" placeholder="Surface minimale" name="surface" value="{{ $input['surface'] ?? '' }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-lg" placeholder="Nombre de pièces min" name="rooms" value="{{ $input['rooms'] ?? '' }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control form-control-lg" placeholder="Budget Max" name="price" value="{{ $input['price'] ?? '' }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-lg" placeholder="Mot clé" name="title" value="{{ $input['title'] ?? '' }}">
+                </div>
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg mt-3">Rechercher</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="container mt-5">
-        <h3 class="mb-4 text-center">Nos biens disponibles</h3>
-        <div class="row">
+    <!-- Section des biens disponibles -->
+    <div class="container my-5">
+        <h3 class="text-center mb-4 fw-bold">Nos biens disponibles</h3>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @forelse ($properties as $property)
-                <div class="col-12 col-md-4 col-lg-3 mb-4">
-                    <div class="card shadow-sm">
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
                         @include('property.card')
                     </div>
                 </div>
             @empty
                 <div class="col">
-                    <div class="alert alert-warning text-center">
-                        <h4>Aucun bien ne correspond à vos critères de recherche</h4>
+                    <div class="alert alert-warning text-center py-4">
+                        <h4 class="mb-0">Aucun bien ne correspond à vos critères de recherche</h4>
                     </div>
                 </div>
             @endforelse
         </div>
 
-        <div class="d-flex justify-content-center my-4">
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-5">
             {{ $properties->links() }}
         </div>
     </div>
-
 @endsection

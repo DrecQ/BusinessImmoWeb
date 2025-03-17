@@ -1,110 +1,14 @@
-{{-- @extends('base')
-
-
-@section('title', $property->title)
-
-
-@section('content')
-
-<div class="container mt-4">
-        <h1>{{ $property->title }}</h1>
-        <h2>{{ $property->rooms }} pièces - {{ $property->surface }} m² - à {{ $property->address }}</h2>
-
-        <div class="text-primary fw-bold" style="font-size : 4rem">
-            {{ number_format($property->price, thousands_separator: ' ') }} XOF
-        </div>
-
-        <hr>
-
-        
-        <div class="mt-4">
-            <h4>Intéressé par ce bien ?</h4>
-
-            <form action="" method="post" class="vstack gap-3">
-                @csrf
-                <div class="row">
-                    @include('shared.input', ['class' => 'col', 'label' => 'Prenoms', 'name' => 'firstname'])
-                    @include('shared.input', ['class' => 'col', 'label' => 'Nom', 'name' => 'lastname'])
-                </div>
-                <div class="row">
-                    @include('shared.input', ['class' => 'col','label' => 'Telephone', 'name' => 'phone'])
-                    @include('shared.input', ['class' => 'col','type' => 'email' , 'label' => 'Email', 'name' => 'email'])
-                </div>
-                    @include('shared.input', ['class' => 'col','type' => 'textarea' , 'label' => 'Votre message', 'name' => 'message'])
-            </form>
-
-
-            <div>
-                <button type="submit" class="btn btn-primary mt-2 pt-2">Nous contacter</button>
-            </div>
-        </div>
-
-        <div class="mt-4">
-            <p> {{!! nl2br($property->description) !!}}</p>
-
-            <div class="row">
-                <div class="col-8">
-                    <h2>Caractéristiques</h2>
-                    <table class="table table-stripped">
-                        <tr>
-                            <td>Surface habitable</td>
-                            <td>{{ $property->surface }} m²</td>
-                        </tr>
-                        <tr>
-                            <td>Pièces</td>
-                            <td>{{ $property->rooms }}</td>
-                        </tr>
-                        <tr>
-                            <td>Chambres</td>
-                            <td>{{ $property->bedrooms }}</td>
-                        </tr>
-                        <tr>
-                            <td>Salle de bain</td>
-                            <td>{{ $property->bathrooms }}</td>
-                        </tr>
-                        <tr>
-                            <td>Étage</td>
-                            <td>{{ $property->floor ?: 'Rez de chaussée' }}</td>
-                        </tr>
-                        <tr>
-                            <td>Localisation</td>
-                            <td>
-                                {{ $property->address }} <br>
-                                {{ $property->city }} ({{ $property->postal_code }})
-                            </td>
-                        </tr>
-                   
-                        <tr>
-                    </table>
-                </div>
-
-                <div class="col-4">
-                    <h2>Spécifités</h2>
-                    <ul class="list-group">
-                        @foreach($property->option as $option)
-                            <li class="list-group-item">{{ $option->name }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection --}}
-
-
-
 @extends('base')
 
 @section('title', $property->title)
 
 @section('content')
-
 <div class="container mt-5">
-    <!-- Titre du bien et informations principales -->
+    <!-- Titre et informations principales -->
     <div class="text-center mb-5">
-        <h1 class="display-4 text-primary">{{ $property->title }}</h1>
-        <h3 class="text-muted">{{ $property->rooms }} pièces - {{ $property->surface }} m² - à {{ $property->address }}</h3>
-        <div class="text-primary fw-bold" style="font-size: 3rem;">
+        <h1 class="display-4 text-primary fw-bold">{{ $property->title }}</h1>
+        <h3 class="text-muted">{{ $property->rooms }} pièces - {{ $property->surface }} m² - {{ $property->address }}</h3>
+        <div class="text-primary fw-bold mt-3" style="font-size: 3rem;">
             {{ number_format($property->price, thousands_separator: ' ') }} XOF
         </div>
     </div>
@@ -112,24 +16,34 @@
     <hr class="my-4">
 
     <!-- Formulaire de contact -->
-    <div class="mt-5">
-        <h4 class="text-center mb-4">Intéressé par ce bien ?</h4>
+    <div class="bg-light p-4 rounded shadow-sm">
+        <h4 class="text-center mb-4 fw-bold">Intéressé par ce bien ?</h4>
 
         @include('shared.flash')
 
-        <form action=" {{ route('property.contact', $property)}}" method="post" class="vstack gap-4">
+        <form action="{{ route('property.contact', $property) }}" method="post" class="vstack gap-3">
             @csrf
             <div class="row g-3">
-                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Prénoms', 'name' => 'firstname'])
-                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Nom', 'name' => 'lastname'])
+                <div class="col-md-6">
+                    @include('shared.input', ['class' => 'form-control', 'label' => 'Prénoms', 'name' => 'firstname', 'placeholder' => 'Votre prénom'])
+                </div>
+                <div class="col-md-6">
+                    @include('shared.input', ['class' => 'form-control', 'label' => 'Nom', 'name' => 'lastname', 'placeholder' => 'Votre nom'])
+                </div>
             </div>
             <div class="row g-3">
-                @include('shared.input', ['class' => 'col-md-6', 'label' => 'Téléphone', 'name' => 'phone', ])
-                @include('shared.input', ['class' => 'col-md-6', 'type' => 'email', 'label' => 'Email', 'name' => 'email'])
+                <div class="col-md-6">
+                    @include('shared.input', ['class' => 'form-control', 'label' => 'Téléphone', 'name' => 'phone'])
+                </div>
+                <div class="col-md-6">
+                    @include('shared.input', ['class' => 'form-control', 'type' => 'email', 'label' => 'Email', 'name' => 'email'])
+                </div>
             </div>
-            @include('shared.input', ['class' => 'col-12', 'type' => 'textarea', 'label' => 'Votre message', 'name' => 'message'])
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary btn-lg mt-3">Nous contacter</button>
+            <div class="col-12">
+                @include('shared.input', ['class' => 'form-control', 'type' => 'textarea', 'label' => 'Votre message', 'name' => 'message'])
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <button type="submit" class="btn btn-primary w-50 btn-lg">Nous contacter</button>
             </div>
         </form>
     </div>
@@ -137,14 +51,14 @@
     <hr class="my-5">
 
     <!-- Description et caractéristiques -->
-    <div class="mt-4">
-        <h4>Description</h4>
-        <p>{!! nl2br(e($property->description)) !!}</p>
+    <div class="mt-5">
+        <h4 class="fw-bold mb-4">Description</h4>
+        <p class="lead">{!! nl2br(e($property->description)) !!}</p>
 
-        <div class="row">
+        <div class="row mt-4">
             <!-- Caractéristiques -->
             <div class="col-md-8">
-                <h4>Caractéristiques</h4>
+                <h4 class="fw-bold mb-4">Caractéristiques</h4>
                 <table class="table table-bordered table-striped">
                     <tbody>
                         <tr>
@@ -169,15 +83,15 @@
                         </tr>
                         <tr>
                             <td>Localisation</td>
-                            <td>{{ $property->address }}<br> {{ $property->city }} ({{ $property->postal_code }})</td>
+                            <td>{{ $property->address }}<br>{{ $property->city }} ({{ $property->postal_code }})</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Spécifications -->
+            <!-- Spécificités -->
             <div class="col-md-4">
-                <h4>Spécificités</h4>
+                <h4 class="fw-bold mb-4">Spécificités</h4>
                 <ul class="list-group">
                     @foreach($property->option as $option)
                         <li class="list-group-item">{{ $option->name }}</li>
@@ -188,4 +102,45 @@
     </div>
 </div>
 
+<!-- Footer -->
+<footer class="bg-light py-4 mt-4 border-top">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <!-- Section Liens rapides -->
+        <div class="col-md-4 mb-3">
+          <h5 class="fw-bold mb-3">Liens rapides</h5>
+          <ul class="list-unstyled">
+            <li><a href="/" class="text-decoration-none text-dark">Accueil</a></li>
+            <li><a href="#" class="text-decoration-none text-dark">Nos biens</a></li>
+          </ul>
+        </div>
+  
+        <!-- Section Contact -->
+        <div class="col-md-4 mb-3">
+          <h5 class="fw-bold mb-3">Contact</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-map-marker-alt me-2"></i>xxxxxxx , Cotonou</li>
+            <li><i class="fas fa-phone me-2"></i>+229 01 xx xx xx xx</li>
+            <li><i class="fas fa-envelope me-2"></i>contact@businessimmo.com</li>
+          </ul>
+        </div>
+  
+        <!-- Section Réseaux sociaux -->
+        <div class="col-md-4 mb-3">
+          <h5 class="fw-bold mb-3">Suivez-nous</h5>
+          <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+            <a href="#" class="text-dark"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#" class="text-dark"><i class="fab fa-twitter fa-2x"></i></a>
+            <a href="#" class="text-dark"><i class="fab fa-instagram fa-2x"></i></a>
+            <a href="#" class="text-dark"><i class="fab fa-linkedin fa-2x"></i></a>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Copyright -->
+      <div class="text-center mt-4">
+        <p class="mb-0">&copy; 2023 BusinessImmo Agence. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
 @endsection

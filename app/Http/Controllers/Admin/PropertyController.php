@@ -47,7 +47,13 @@ class PropertyController extends Controller
     
         public function store(PropertyFormRequest $request)
         {
-            $property = Property::create($request->validated());
+            $data = $request->validated();
+
+            /** @var UploadedFile $image  */
+            $image = $request->validated('image');
+
+
+            $property = Property::create($data);
             $property->option()->sync($request->validated('options'));
             return to_route('admin.property.index')->with('success', 'Le bien a été créé avec succès.');
         }

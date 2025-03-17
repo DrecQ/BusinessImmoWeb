@@ -8,7 +8,7 @@
 
     <form class="vstack gap-2" 
           action="{{ route($property->exists ? 'admin.property.update' : 'admin.property.store', $property) }}" 
-          method="post">
+          method="post" enctype="multipart/form-data">
 
         @csrf 
         @method($property->exists ? 'PUT' : 'POST')
@@ -22,6 +22,14 @@
         </div>
 
         @include('shared.input', ['type' => 'textarea', 'name' => 'description', 'value' => $property->description])
+
+        <!-- Ajout de l'image !-->
+        @include('shared.input', ['type' => 'file', 'name' => 'image'])
+        @error('Image')
+            @include('shared.flash')
+        @enderror
+
+
 
         <div class="row">
             @include('shared.input', ['class' => 'col', 'label' => 'Pièces', 'name' => 'rooms', 'value' => $property->rooms])

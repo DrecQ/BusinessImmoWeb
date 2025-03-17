@@ -2,6 +2,7 @@
 
     $type ??='text';
     $class ??=null;
+    $placeholder ??=null;
     $name ??= '';
     $value ??= null;
     $label ??= ucfirst($name);

@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Agence</a>
+    <a class="navbar-brand" href="/">Agence</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,7 +22,7 @@
 
       <ul class="navbar-nav">
       <li class="nav-item">
-          <a class="nav-link" href="#">Acceuil</a>
+          <a class="nav-link" href="{{ route('property.index') }}">Acceuil</a>
         </li>
         <li class="nav-item">
           <a @class(['nav-link', 'active' => str_contains($route, 'property.')]) href="{{ route('admin.property.index')}}">Gérer les biens</a>
