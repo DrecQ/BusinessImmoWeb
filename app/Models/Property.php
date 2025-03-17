@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Property extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -45,9 +47,9 @@ class Property extends Model
          return Storage::disk('public')->url($this->image ?? '');
     }
 
-    public function scopeAvailable(Builder $builder) : Builder 
+    public function scopeAvailable(Builder $builder,bool  $available=true) : Builder 
     {
-        return $builder->where('sold', false);
+        return $builder->where('sold', !$available);
     }
 
     public function scopeRecent(Builder $builder) : Builder 
