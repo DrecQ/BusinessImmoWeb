@@ -49,9 +49,13 @@ class PropertyController extends Controller
         {
             $data = $request->validated();
 
-            /** @var UploadedFile $image  */
+            /** @var UploadedFile|null  $image  */
             $image = $request->validated('image');
 
+            if ($image !== null && !$image->getError())
+             { 
+                $data['image'] = $image->store('blog', 'public');
+            }
 
             $property = Property::create($data);
             $property->option()->sync($request->validated('options'));

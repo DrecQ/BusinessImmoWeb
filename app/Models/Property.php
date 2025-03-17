@@ -14,6 +14,7 @@ class Property extends Model
     protected $fillable = [
         'title',
         'description',
+        'image',
         'surface',
         'rooms',
         'bedrooms',
@@ -24,7 +25,7 @@ class Property extends Model
         'address',
         'postal_code',
         'country',
-       'sold',
+        'sold',
     ];
 
     public function option() : BelongsToMany
