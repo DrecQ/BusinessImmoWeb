@@ -25,7 +25,7 @@
   </div>
 
   <!-- Footer -->
-<footer class="bg-light py-4 mt-4 border-top">
+<footer class="bg-light py-4 mt-5 border-top">
   <div class="container">
     <div class="row text-center text-md-start">
       <!-- Section Liens rapides -->
