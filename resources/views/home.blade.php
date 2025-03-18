@@ -1,6 +1,14 @@
 @extends('base')
 
 @section('content')
+
+  @php
+   $type ='danger';
+  @endphp
+
+
+  <x-alert :type="$type"></x-alert>
+
   <!-- Section Hero -->
   <div class="container-fluid bg-light p-5 mb-4">
     <div class="container p-4 my-3 border rounded bg-white shadow">
