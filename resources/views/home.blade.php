@@ -2,12 +2,9 @@
 
 @section('content')
 
-  @php
-   $type ='danger';
-  @endphp
-
-
-  <x-alert :type="$type"></x-alert>
+  <x-alert type="success" class="fw-bold" id="test">
+    Des informations 
+  </x-alert>
 
   <!-- Section Hero -->
   <div class="container-fluid bg-light p-5 mb-4">
