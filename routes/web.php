@@ -45,7 +45,7 @@ Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth')-
 
 //Creation de la route de gestion de la partie administrator
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function() {
     Route::resource('property', \App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
  Route::resource('option', \App\Http\Controllers\Admin\OptionController::class)->except(['show']);
 });

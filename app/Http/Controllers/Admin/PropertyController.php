@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Property::class, 'property');
+    }
     /**
      * Affiche la liste des biens.
      */
