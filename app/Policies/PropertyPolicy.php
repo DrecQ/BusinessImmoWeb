@@ -50,7 +50,7 @@ class PropertyPolicy
     public function delete(User $user, Property $property): bool
     {
         //
-        return $user ->role == 'admmin';
+        return $user ->role == 'admin';
     }
 
     /**
@@ -59,7 +59,7 @@ class PropertyPolicy
     public function restore(User $user, Property $property): bool
     {
         //
-        return $user ->role == 'admmin';
+        return $user ->role == 'admin';
 
     }
 
