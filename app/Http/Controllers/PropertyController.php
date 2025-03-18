@@ -58,9 +58,9 @@ class PropertyController extends Controller
 
     public function contact(Property $property, PropertyContactRequest $request)
     {
-        event(new ContactRequestEvent($property, $request->validated()));	
+        // event(new ContactRequestEvent($property, $request->validated()));	
 
-        // Mail::send(new PropertyContactMail($property, $request->validated()));
+        Mail::send(new PropertyContactMail($property, $request->validated()));
         return back()->with('success', 'Votre demande de contact a bien été envoyé.');
     }
 }
