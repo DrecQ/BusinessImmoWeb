@@ -17,7 +17,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        dd(app(Weather::class));
+        // dd(app(Weather::class));
 
         $properties = Property::orderBy('created_at', 'DESC')->available()->recent()->limit(6)->get();
 
