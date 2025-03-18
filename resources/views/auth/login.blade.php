@@ -1,62 +1,47 @@
-@extends('base')
+<x-guest-layout>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-@section('title', 'Se connecter')
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
 
-@section('content')
-    
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow">
-                    <div class="card-body p-4">
-                        <h1 class="card-title text-center mb-4">@yield('title')</h1>
-
-                        @include('shared.flash')
-
-                        <form action="{{ route('login') }}" method="post" class="vstack gap-3">
-                            @csrf 
-
-                            <!-- Email Input -->
-                            <div class="mb-2">
-                                @include('shared.input', [
-                                    'class' => 'form-control',
-                                    'type' => 'email',
-                                    'label' => 'Email',
-                                    'name' => 'email',
-                                ])
-                            </div>
-
-                            <!-- Password Input -->
-                            <div class="mb-2">
-                                @include('shared.input', [
-                                    'class' => 'form-control',
-                                    'type' => 'password',
-                                    'label' => 'Mot de passe',
-                                    'name' => 'password',
-                                ])
-                            </div>
-
-                            <!-- Submit Button -->
-                            <div class="d-grid mb-1">
-                                <button type="submit" class="btn btn-primary btn-lg">Se connecter</button>
-                            </div>
-
-                            {{-- <!-- Google Login Button -->
-                            <div class="d-grid mb-2">
-                                <a href="{{ route('google.login') }}" class="btn btn-warning btn-lg">
-                                    <i class="fab fa-google me-2"></i> Connexion avec Google
-                                </a>
-                            </div> --}}
-
-                            <!-- Forgot Password Link -->
-                            <div class="text-center">
-                                <a href="" class="text-decoration-none">Mot de passe oublié ?</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <!-- Email Address -->
+        <div>
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-    </div>
 
-@endsection
+        <!-- Password -->
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+
+        <!-- Remember Me -->
+        <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+            </label>
+        </div>
+
+        <div class="flex items-center justify-end mt-4">
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
+
+            <x-primary-button class="ms-3">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
+    </form>
+</x-guest-layout>

@@ -1,13 +1,7 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PropertyController;
-use App\Models\Property;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SocialiteController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -20,39 +14,18 @@ use App\Http\Controllers\SocialiteController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-
-$idregex = '[0-9]+';
-$slugregex = '[0-9a-z\-]+';
-
-Route::get('/biens', [PropertyController::class, 'index'])->name('property.index');
-Route::get('/biens/{slug}-{property}', [PropertyController::class, 'show'])->name('property.show')->where([
-        'property' => $idregex,
-        'slug' => $slugregex
-    ]);
-
-//Route pour les contacts 
-
-Route::post('/biens/{property}/contact', [PropertyController::class, 'contact'])->name('property.contact')->where([
-    'property' => $idregex,
-]);
-
-
-//Creation de la route pour la page de connexion 
-
-Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->name('login');
-Route::post('/login', [AuthController::class, 'doLogin']);
-Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
-
-
-//Creation de la route de gestion de la partie administrator
-
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
-    Route::resource('property', \App\Http\Controllers\Admin\PropertyController::class)->except(['show']);
- Route::resource('option', \App\Http\Controllers\Admin\OptionController::class)->except(['show']);
+Route::get('/', function () {
+    return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-//Gestion de la connexion avec un compte Google
-Route::get('auth/google', [SocialiteController::class, 'redirectToGoogle'])->name('google.login');
-Route::get('auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
