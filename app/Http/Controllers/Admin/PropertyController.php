@@ -51,7 +51,7 @@ class PropertyController extends Controller
         {
 
             $property = Property::create($this->extractData(new Property(), $request));
-            $property->option()->sync($request->validated('option'));
+            $property->options()->sync($request->validated('option'));
 
             return to_route('admin.property.index')->with('success', 'Le bien a été créé avec succès.');
         }
@@ -75,7 +75,7 @@ class PropertyController extends Controller
     {
        
         $property->update($this->extractData($property, $request));
-        $property->option()->sync($request->validated('options'));
+        $property->options()->sync($request->validated('options'));
         return to_route('admin.property.index')->with('success', 'Le bien a été mis à jour avec succès.');
     }
 

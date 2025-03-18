@@ -45,7 +45,7 @@
         </div>
 
         @include('shared.select', ['name' => 'options', 'label' => 'Options', 'value' => $property-> options()-> pluck('id'), 'multiple' => true])
-        @include('shared.checkbox', ['label' => 'Vendu', 'name' => 'sold', 'value' => old('sold', $property->sold ?? false), 'option'=> $option])
+        @include('shared.checkbox', ['label' => 'Vendu', 'name' => 'sold', 'value' => old('sold', $property->sold ?? false), 'option'=> $options])
 
         <div>
             <button type="submit" class="btn btn-primary">
