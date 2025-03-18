@@ -2,8 +2,7 @@
 
 namespace App\Providers;
 
-use App\Events\ContactRequestEvent;
-use App\Listeners\ContactListener;
+use App\Listeners\ContactEventSubscriber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,10 +19,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        
+    ];
 
-        ContactRequestEvent::class => [
-            ContactListener::class,
-        ],
+    protected $subscribe = [
+        ContactEventSubscriber::class,
     ];
 
     /**
