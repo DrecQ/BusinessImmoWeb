@@ -27,7 +27,7 @@
 
     <!-- Formulaire de contact -->
     <div class="bg-light p-4 rounded shadow-sm">
-        <h4 class="text-center mb-4 fw-bold">{{ __('property.contact_title')}}</h4>
+        <h4 class="text-center mb-4 fw-bold">{{ __('Interessed in this property ?')}}</h4>
 
         @include('shared.flash')
 
