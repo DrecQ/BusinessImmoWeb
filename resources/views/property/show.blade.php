@@ -4,61 +4,65 @@
 
 @section('content')
 <div class="container mt-5">
-    <!-- Section Image et Informations principales -->
-    <div class="row align-items-center mb-5">
+    
+        <!-- Informations principales -->
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <h1 class="display-5 text-primary fw-bold">{{ $property->title }}</h1>
+                <h4 class="text-muted">{{ $property->rooms }} pièces - {{ $property->surface }} m² - {{ $property->address }}</h4>
+                <div class="text-primary fw-bold mt-3" style="font-size: 2.5rem;">
+                    {{ number_format($property->price, thousands_separator: ' ') }} XOF
+                </div>
+            </div>
+        </div>
+    
+        <hr class="my-4">
+    <!-- Section Image et Formulaire de contact -->
+    <div class="row mb-5">
         <!-- Image du bien -->
-        <div class="col-md-5">
+        <div class="col-md-6">
             @if($property->image)
                 <img src="{{ $property->imageUrl() }}" alt="{{ $property->title }}" class="img-fluid rounded shadow-lg" style="height: 400px; object-fit: cover; width: 100%;">
             @endif
         </div>
 
-        <!-- Informations principales -->
-        <div class="col-md-7">
-            <h1 class="display-5 text-primary fw-bold">{{ $property->title }}</h1>
-            <h4 class="text-muted">{{ $property->rooms }} pièces - {{ $property->surface }} m² - {{ $property->address }}</h4>
-            <div class="text-primary fw-bold mt-3" style="font-size: 2.5rem;">
-                {{ number_format($property->price, thousands_separator: ' ') }} XOF
+        <!-- Formulaire de contact -->
+        <div class="col-md-6">
+            <div class="bg-light p-4 rounded shadow-sm">
+                <h4 class="text-center mb-4 fw-bold">{{ __('Interessed in this property ?')}}</h4>
+
+                @include('shared.flash')
+
+                <form action="{{ route('property.contact', $property) }}" method="post" class="vstack gap-3">
+                    @csrf
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            @include('shared.input', ['class' => 'form-control', 'label' => 'Prénoms', 'name' => 'firstname', 'placeholder' => 'Votre prénom'])
+                        </div>
+                        <div class="col-md-6">
+                            @include('shared.input', ['class' => 'form-control', 'label' => 'Nom', 'name' => 'lastname', 'placeholder' => 'Votre nom'])
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            @include('shared.input', ['class' => 'form-control', 'label' => 'Téléphone', 'name' => 'phone'])
+                        </div>
+                        <div class="col-md-6">
+                            @include('shared.input', ['class' => 'form-control', 'type' => 'email', 'label' => 'Email', 'name' => 'email'])
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        @include('shared.input', ['class' => 'form-control', 'type' => 'textarea', 'label' => 'Votre message', 'name' => 'message'])
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="submit" class="btn btn-primary w-50 btn-lg">Nous contacter</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <hr class="my-4">
 
-    <!-- Formulaire de contact -->
-    <div class="bg-light p-4 rounded shadow-sm">
-        <h4 class="text-center mb-4 fw-bold">{{ __('Interessed in this property ?')}}</h4>
-
-        @include('shared.flash')
-
-        <form action="{{ route('property.contact', $property) }}" method="post" class="vstack gap-3">
-            @csrf
-            <div class="row g-3">
-                <div class="col-md-6">
-                    @include('shared.input', ['class' => 'form-control', 'label' => 'Prénoms', 'name' => 'firstname', 'placeholder' => 'Votre prénom'])
-                </div>
-                <div class="col-md-6">
-                    @include('shared.input', ['class' => 'form-control', 'label' => 'Nom', 'name' => 'lastname', 'placeholder' => 'Votre nom'])
-                </div>
-            </div>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    @include('shared.input', ['class' => 'form-control', 'label' => 'Téléphone', 'name' => 'phone'])
-                </div>
-                <div class="col-md-6">
-                    @include('shared.input', ['class' => 'form-control', 'type' => 'email', 'label' => 'Email', 'name' => 'email'])
-                </div>
-            </div>
-            <div class="col-12">
-                @include('shared.input', ['class' => 'form-control', 'type' => 'textarea', 'label' => 'Votre message', 'name' => 'message'])
-            </div>
-            <div class="d-flex justify-content-center mt-3">
-                <button type="submit" class="btn btn-primary w-50 btn-lg">Nous contacter</button>
-            </div>
-        </form>
-    </div>
-
-    <hr class="my-5">
 
     <!-- Description et caractéristiques -->
     <div class="mt-5">
