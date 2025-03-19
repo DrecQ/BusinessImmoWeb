@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Notifications\ContactRequestNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class PropertyController extends Controller
 {
@@ -47,6 +48,12 @@ class PropertyController extends Controller
 
     public function show(string $slug, Property $property)
     {
+        // //Affichage des notifications 
+        //   /** @var User $user */
+        //   $user = User::first();
+
+
+         //Récupération d'une property 
         $expectedSlug = $property->getSlug();
 
         if($slug !== $expectedSlug)
@@ -63,10 +70,13 @@ class PropertyController extends Controller
         // event(new ContactRequestEvent($property, $request->validated())); //Gestion des evenements
         // Mail::send(new PropertyContactMail($property, $request->validated())); //Envoi de mail
 
-        //Gestion des notifications
+        // //Gestion des notifications
         /** @var User $user */
         $user = User::first();
-        $user->notify(new ContactRequestNotification($property, $request->validated()));
+
+        //Utilisation 
+
+        Notification::route('mail', 'admin@gmail.com')->notify(new ContactRequestNotification($property, $request->validated()));
 
         return back()->with('success', 'Votre demande de contact a bien été envoyé.');
     }

@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Property;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -27,7 +28,12 @@ class ContactRequestNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database'];
+        if($notifiable instanceof User && $notifiable->accept_email)
+        {
+            return ['mail', 'database'];
+        }
+            return ['database'];
+        
     }
 
     /**
@@ -50,6 +56,10 @@ class ContactRequestNotification extends Notification
     {
         return [
             //
+
+            'property_id' => $this->property->id,
+            'title' => $this->property->title,
+            ... $this->data
         ];
     }
 }
