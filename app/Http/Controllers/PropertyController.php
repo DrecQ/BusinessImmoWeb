@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\ContactRequestEvent;
 use App\Http\Requests\PropertyContactRequest;
 use App\Http\Requests\SearchPropertiesRequest;
+use App\Jobs\DemoJob;
 use App\Mail\PropertyContactMail;
 use App\Models\Property;
 use App\Models\User;
@@ -48,6 +49,11 @@ class PropertyController extends Controller
 
     public function show(string $slug, Property $property)
     {
+
+        //Utilisation des jobs 
+        DemoJob::dispatch($property)->delay(now()->addSeconds(10));
+
+
         // //Affichage des notifications 
         //   /** @var User $user */
         //   $user = User::first();

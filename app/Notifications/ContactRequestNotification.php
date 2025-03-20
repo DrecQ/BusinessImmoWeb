@@ -38,6 +38,7 @@ class ContactRequestNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         sleep(2);
+        // throw new \Exception('Une erreur est survenue !'); //Pour tester l'echec de l'exceution d'une requête de la file d'attente
         return (new MailMessage)
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
