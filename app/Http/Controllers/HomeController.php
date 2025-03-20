@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\User;
 use App\Weather;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
